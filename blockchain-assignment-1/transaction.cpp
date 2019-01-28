@@ -96,10 +96,7 @@ bool txn_t::validate()
     rsa_public_key_t pubKey((const uint8_t*) public_key.data(), public_key.size());
     bool v = pubKey.verify(tx_hash.data(), tx_hash.size(),
                           tx_sign.data(), tx_sign.size());
-    if(!v)
-        return false;
-    
-    return true;
+    return v;
 }
 
 bool txn_t::balance_available(const balance_map_t& balances) const
