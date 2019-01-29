@@ -121,7 +121,8 @@ void txn_t::update_balances(balance_map_t& balances) const
     balances[change_addr] += change;
 
     // source has no more balance.
-    balances[source_addr] = 0;
+    // perf bug: the source key should be deleted instead of just setting it to 0
+    balances.erase(source_addr);
 }
 
 size_t txn_t::size() const
