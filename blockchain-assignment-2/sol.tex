@@ -108,15 +108,58 @@ that binary tree.
 \begin{question}
     \textbf{Hiding vs. binding commitments}
 \end{question}
+
+\subsubsection*{(a)}
+Assuming $10$ digit phone numbers there can be atmost $10^{10}$ valid phone numbers. Bob can precompute the 
+hash of all these valid phone numbers, and create a hashmap of hash value to mobile number.
+Whenever a new user registers, he just checks his/her phone number from the hashmap, he can do the
+same thing for the contacts of this user. Hence Bob can act maliciously to determine the phone
+numbers and contacts of all BobCrypt users.
+
+
+\subsubsection*{(b)}
+Using a $128$ bit nounce will not work since then it would not be possible to add friends on the app.
+Let's say $B$ creates a new account, and $B$ has $A's$ contact number in his phone, but since the
+does not store the nounce explicity, $B$ will not be able to add $A$ just using his phone number. Hence
+BobCrypt $2.0$ will not be able to provide intended functionality.
+
 \begin{question}
     \textbf{Bitcoin script}
 \end{question}
+
+
+
 \begin{question}
     \textbf{Lightweight clients}
 \end{question}
+
+\subsubsection*{(a)}
+Since Bob only has the header of last block of blockchain, Alice needs to send the merkle tree proof 
+of the block in which this transaction is present. Along with merkle tree proof, she also need to 
+send the all the block headers from the second most recent block to the one having this transaction. \\
+
+To check Bob will verify merkle tree existance using the proof provided, compute block hashes consequtively
+and then finally verify the block hash with current block header's previous block field.
+
+\subsubsection*{(b)}
+\begin{align*}
+   \text{Proof size} &= \text{Block headers +  Merkle Proof} \\
+    &= k*size\_of(\text{block\_header}) + \ceil{\log n}*size\_of(\text{one merkle proof unit})
+\end{align*}
+
+\subsubsection*{(c)}
+
 \begin{question}
     \textbf{BitcoinLotto}
 \end{question}
+\subsubsection*{(a)}
+To prevent the winner from spending money on first we can implement a $2$  of $2$ multisig. In other words,
+the winner has a private key, but to use the money, transaction must be signed by trusted printing factory
+(who have the other private key) and the winner. Private key of winner is implemented using 2-of-2 multisig.
+
+\subsubsection*{(b)}
+To prevent loss of lost ticket's money, we can make a transaction with locktime of $1$ week to the next week's
+address. If the ticket is lost, the money will automatically go to the next week's lottery.
 
 
 \end{document}
