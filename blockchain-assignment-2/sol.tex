@@ -1,0 +1,122 @@
+
+%=======================   Default Templete   ==================
+\documentclass[a4paper]{article}
+
+
+% file with some default definations
+\input{structure.tex}
+\usepackage{listings}
+\lstset{language=Python, basicstyle=\normalsize\sffamily\linespread{0.8}, numbers=left, numberstyle=\small, stepnumber=1, numbersep=5pt}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{\NAME\ (\ANDREWID)}}
+\chead{\textbf{Assignment \HWNUM}}
+\rhead{\COURSE}
+
+\renewcommand{\qedsymbol}{\rule{0.7em}{0.7em}}
+
+%==================Header details======================
+\newcommand\NAME{Raghukul Raman}
+\newcommand\ANDREWID{160538}
+\newcommand\HWNUM{2}
+\newcommand\COURSE{CS731}
+%======================================================
+
+% available formatted sections:
+% - COMMAND LINE ENVIRONMENT: \begin{commandline} \end{commandline}
+% - FILE CONTENTS ENVIRONMENT: \begin{file}[optional filename, defaults to "File"]
+% - NUMBERED QUESTIONS ENVIRONMENT: \begin{question}[optional title]
+% - WARNING TEXT ENVIRONMENT(can also be used for note): \begin{warn}[optional title, defaults to "Warning:"]
+% - INFORMATION ENVIRONMENT(can be used to mention given details): \begin{info}[optional title, defaults to "Info:"]
+
+%===============================================================
+\begin{document}
+\begin{question}
+    \textbf{Hash functions and proofs of work}
+\end{question}
+Let $H: P \times S \rightarrow \{ 0,1,...2^n-1 \}$ be a collision resistant hash function. \\
+
+Let $H^\prime$ be a new hash function,
+$H^\prime : P \times S \rightarrow \{ 0,1,...2^{n^{\prime}}-1 \}$ (where $n^\prime = n+\log(d)$), defined as:
+$$H^\prime(p, s) = (num(s) \text{ mod } d) \: | \: H(p, s)$$
+Here $num(s)$, denotes the number representation of $s$. In other words the new hash function is
+defined by append $H(p, s)$, to modulo of $s$ wrt $d$.
+
+\begin{warn}[Claim $1$:]
+    $H^\prime$ is collision resistant hash function.
+\end{warn}
+\begin{proof}
+    Suppose $H^\prime$ is not a collision resistant hash function, ie. its easy to find $x, y$, such that
+    $H^\prime(x) = H^\prime(y)$ and $x \ne y$. Which means that last $n$ bits of $H^\prime(x)$
+    are same as that of $H^\prime (y)$, or $H(x) = H(y)$. This contradicts or assumption that $H$
+    was collision resistant. 
+\end{proof}
+
+\begin{warn}[claim $2$:]
+    $H^\prime$ is not proof-of-work secure.
+\end{warn}
+\begin{proof}
+    Note that for every puzzle $p \in P$, $H^\prime (p, 0) = (0 \text{ mod } d) \: | \: H(p, 0) < \dfrac{2^{n^\prime}}{d}$. \\
+
+For a fixed difficulty($d$), it's trivial to find a solution, or $H^\prime$ is not proof-of-work secure.
+\end{proof}
+Therefore, there is a collision resistant hash function that is not proof-of-work secure.
+
+\begin{question}
+    \textbf{Beyond binary Merkle trees}
+\end{question}
+\subsubsection*{(a)}
+\begin{tikzpicture}
+\Tree [.$H_{19}=H(H_{13}|H_{46}|H_{79})$ [.$H_{13}=H(T_1|T_2|T_3)$ [ $T_1$ ] [ $T_2$ ] [ $T_3$ ] ]
+                                  [.$H_{46}=H(T_4|T_5|T_6)$ [ $T_4$ ] [ $T_5$ ] [ $T_6$ ] ]
+                                  [.$H_{79}=H(T_7|T_8|T_9)$ [ $T_7$ ] [ $T_8$ ] [ $T_9$ ] ]
+        ]
+\end{tikzpicture}
+
+Commitment tree for $S=\{ T_1, T_2, ...T_9\}$ \\
+Each node of the tree stores the hash of it's $3$ children concatenated. Finally Alice keeps the hash value of
+root of merkle tree. \\
+To prove membership of $T_4$, Alice need to provide values of $T_5,T_6, H_{13}, H_{79}$. Bob verifies them
+by computing $H_{46}$ using $T_4, T_5, T_6$, and then computes $H_{19}$ using computes $H_{46}$ and provided
+$H_{13}, H_{79}$, and compare with the root hash stored earlier.
+
+\subsubsection*{(b)}
+Note that height of above merkle tree as a function of $n, k$ is $\ceil{\log_k n}$
+For each level we need to store $k-1$ for proof.\\
+Length of proof to prove existance of $T_i$ is $(k-1)\ceil{\log_k n}$, in above example it is $2\ceil{\log_3 n}$
+
+\subsubsection*{(c)}
+In a binary tree $k = 2$, ie proof size = $\ceil{\log n}$, while for a general k-ary tree it is $(k-1)\ceil{\log_k n}$ \\
+
+Their ratio is:
+$$\dfrac{(k-1)\ceil{\log_k n}}{\ceil{\log n}}$$
+ignoring the ceil function we get:
+$$\dfrac{(k-1)\log_k n}{\log n} =  \dfrac{(k-1)\log 2}{\log k} >> 1 \text{ as $k$ increases}$$
+One advantage of this over the regular binary merkle tree can be that we would need to compute very few hash
+, ie this would be beneficial for constly hash functions.
+Precisely we need to call $H$ $\ceil{\log_k n}$ times, which is approximately $\log k$ times better
+that binary tree.
+
+\begin{question}
+    \textbf{Hiding vs. binding commitments}
+\end{question}
+\begin{question}
+    \textbf{Bitcoin script}
+\end{question}
+\begin{question}
+    \textbf{Lightweight clients}
+\end{question}
+\begin{question}
+    \textbf{BitcoinLotto}
+\end{question}
+
+
+\end{document}
