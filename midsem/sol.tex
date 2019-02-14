@@ -1,0 +1,73 @@
+
+%=======================   Default Templete   ==================
+\documentclass[a4paper]{article}
+
+
+% file with some default definations
+\input{structure.tex}
+\usepackage{listings}
+\lstset{language=Python, basicstyle=\normalsize\sffamily\linespread{0.8}, numbers=left, numberstyle=\small, stepnumber=1, numbersep=5pt}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{\NAME\ (\ANDREWID)}}
+\chead{\textbf{Mid Semester Exam \HWNUM}}
+\rhead{\COURSE}
+
+\renewcommand{\qedsymbol}{\rule{0.7em}{0.7em}}
+
+%==================Header details======================
+\newcommand\NAME{Raghukul Raman}
+\newcommand\ANDREWID{160538}
+\newcommand\HWNUM{}
+\newcommand\COURSE{CS731}
+%======================================================
+
+% available formatted sections:
+% - COMMAND LINE ENVIRONMENT: \begin{commandline} \end{commandline}
+% - FILE CONTENTS ENVIRONMENT: \begin{file}[optional filename, defaults to "File"]
+% - NUMBERED QUESTIONS ENVIRONMENT: \begin{question}[optional title]
+% - WARNING TEXT ENVIRONMENT(can also be used for note): \begin{warn}[optional title, defaults to "Warning:"]
+% - INFORMATION ENVIRONMENT(can be used to mention given details): \begin{info}[optional title, defaults to "Info:"]
+
+%===============================================================
+\begin{document}
+
+\begin{question}
+    Q1    
+\end{question}
+
+
+\begin{question}
+    Q2
+\end{question}
+
+
+
+\begin{question}
+    Q3
+\end{question}
+He is wrong. We can have a double spending attact is there are $51$
+
+\begin{question}
+    Q4
+\end{question}
+
+
+
+\begin{question}
+    Q5
+\end{question}
+
+\begin{question}
+    Q6
+\end{question}
+
+\end{document}

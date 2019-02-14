@@ -126,7 +126,17 @@ BobCrypt $2.0$ will not be able to provide intended functionality.
 \begin{question}
     \textbf{Bitcoin script}
 \end{question}
+\subsubsection*{(a)}
+ScriptSig is just the password.
 
+\subsubsection*{(b)}
+This is not a secure way since this SciptSig would be visible in the blockchain when she does a transaction.
+In other words her password is publically visible in blockchain. So if there is any money left
+in her account, someone can make a transaction using this password.
+
+\subsubsection*{(c)}
+In order to spend the bitcoin send via P2SH, the recipient must provide a script matching the script hash,
+and the data that will make the script evaluate to true. Now to make a transaction alice need to 
 
 
 \begin{question}
@@ -145,6 +155,13 @@ and then finally verify the block hash with current block header's previous bloc
 \begin{align*}
    \text{Proof size} &= \text{Block headers +  Merkle Proof} \\
     &= k*size\_of(\text{block\_header}) + \ceil{\log n}*size\_of(\text{one merkle proof unit})
+\end{align*}
+Assuming that merkle root is implement using SHA2, we need $32$ bytes for one unit of merkle proof.
+Also note that one block header is approximately $80$ bytes.
+\begin{align*}
+    \text{Proof Size} &= 8*80 + \ceil{\log 256}*32 \\
+                      &= 640 + 8*32 \\
+                      &= 896
 \end{align*}
 
 \subsubsection*{(c)}

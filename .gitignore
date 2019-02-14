@@ -1,3 +1,4 @@
 blockchain-assignment-1/tests/*.dat
 *.gz
-
+*.log
+*.aux
