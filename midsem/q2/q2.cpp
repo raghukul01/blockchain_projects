@@ -12,11 +12,10 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "crypto.h"
+
 
 int main() {
-	crypto_init();
-	keypair_t keys = generate_rsa_keys();
+	
 
 	
 }

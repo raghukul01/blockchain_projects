@@ -136,7 +136,9 @@ in her account, someone can make a transaction using this password.
 
 \subsubsection*{(c)}
 In order to spend the bitcoin send via P2SH, the recipient must provide a script matching the script hash,
-and the data that will make the script evaluate to true. Now to make a transaction alice need to 
+and the data that will make the script evaluate to true. Now to make a transaction alice need to provide the script
+and the password (ScriptSig). So this is also not a secure way, since the password and script would eventually be visible
+after first transaction.
 
 
 \begin{question}
@@ -165,7 +167,18 @@ Also note that one block header is approximately $80$ bytes.
 \end{align*}
 
 \subsubsection*{(c)}
+Since the block size is fixed, so number of transactions would be fixed. Hence we can ignore the size
+needed for merkle proof in the asymptotic derivation. \\
 
+\textbf{Best case:} $\mathbf{O(1)}$ This would occur when the block containing Alice's transaction
+is the block which is stored in prev hash value of current head. We just need to do merkle proof (ignored due to asymptotic analysis)
+and then one hash computation would verify. \\
+
+\textbf{Worst Case:} $\mathbf{O(k)}$ This case would happen when either all the blocks between current head,
+    and the block containing Alice's transaction have hash value greater than current node, or all the block
+    form a decreasing sequence. In this case having prev hash value stored would not help. \\
+    
+\textbf{Average Case:} $\mathbf{O(\log^2 k)}$
 \begin{question}
     \textbf{BitcoinLotto}
 \end{question}

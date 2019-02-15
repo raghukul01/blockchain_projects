@@ -78,7 +78,7 @@
 Two suggested protocols to increase transaction rate to $70$/second are:
 \begin{enumerate}
     \item Increase size of block from $1$MB to $10$MB.
-    \item Decrease the block interval time to $1$ min.
+    \item Decrease the block interval time to $1$ min (from $10$ minute).
 \end{enumerate}
 \textbf{Issues with increasing block size:} This would require a lot more storage, and would make the full
             nodes more expensive to operate. And eventaully fully operating nodes will decrease, and the system
@@ -105,6 +105,11 @@ not including the cocaine transaction. So next time any miner would see 2 branch
 being honest it would the would be equally probable to build new block on either of them. Since There
 is no way to distinguish that one of the block tries to double spend, there are approximately $50\%$ chances
 that double spend would occur.\\
+
+\textbf{$\mathbf{51 \%}$ attack}: If there is a node that has > 51\% hash power, then it can double by
+simply growing over the other transaction block, to a large extent, such that even 6 cofirmations won't help.
+So in above example if Bob was satisfied after seeing 6 more blocks on top of current transaction's block, Alice
+might start a new chain, and since she has hash power > 51\%, she can easily take over the other chain.
 % Doubt: should we explain 6 transaction confirmation or this would suffice?
 
 \subsection*{Problem 4:}
@@ -113,7 +118,7 @@ Since the miner is ahead of public blockchain by two secret blocks, all the mini
 will be wasted. Other miners would mine on top of what they think is the longest chain, so after the
 selfish miner announces, that branch would instantly become the new longest chain. Eventaully 
 the rest of block (found by other miners), would become orphan. So in nutshell, gain in selfish mining
-is that effective share of mining rewards would increase. \\
+is that effective share of mining rewards would increase.
 
 \subsection*{(b)}
 
@@ -123,7 +128,10 @@ is that effective share of mining rewards would increase. \\
 
 \subsection*{Problem 6:}
 Assuming that other miners have detected misbehaving miner's block, the next randomly selected node can
-``boycott'', by not building on top of the misbehaving miner's block. Since there is no real identity in
+``boycott'', by not building on top of the misbehaving miner's block. In other words they can boycott
+a particular address correspoding to the coinbase transaction of this block. \\
+
+Since there is no real identity in
 bitcoin blockchain, we cannot really identify the misbehaving node, based on this public key/wallet address.
 Since detecting misbehaving node is hard, the misbehaving node can simply change his public key, and
 can again misbehave. He wouldn't be affected much in this case, so ``boycott'' might not prevent him from misbehaving.
@@ -134,7 +142,7 @@ As a blockchain designer, we can change the puzzle from ``find a block whose has
 pool manager would have to share his private key with all the pool members, and this would be risky
 since members might steal money from his wallet. Other alternative would be that pool manager does the signing work
 and the members compute hash values. But since signing computationally more expensive than computing hash value,
-this scheme would not work and mining pools would work.
+this scheme would not work either. And we can prevent pool mining.
 
 \subsection*{Problem 8:}
 \begin{lstlisting}[style=C++]
@@ -156,7 +164,7 @@ contract MyFirstContract {
   }
 }
 \end{lstlisting}
-\texttt{MyFirstContract.sol}
+\texttt{MyFirstContract.sol} \\
 
 
 \begin{lstlisting}[style=C++]
@@ -169,7 +177,7 @@ module.exports = function(deployer) {
   deployer.deploy(MyFirstContract);
 };
 \end{lstlisting}
-\texttt{2\_deploy\_contracts.js}
+\texttt{2\_deploy\_contracts.js} \\
 
 
 \begin{lstlisting}[style=C++]
@@ -184,13 +192,36 @@ module.exports = {
     }
 }
 \end{lstlisting}
-\texttt{truffle-config.js}
+\texttt{truffle-config.js} \\
 
 \subsection*{Problem 9:}
 
 Pros of Ethereum over Bitcoin are:
 \begin{enumerate}
-    \item Ethereum provide us with EVM, which allow code to be verified and executed on the blockchain
+    \item Ethereum provide us with EVM, which allow code to be verified and executed on the blockchain. This would
+          provide us guarantee that it will be run the same way on everyone's machine.
+    \item There is no limit on block size, hence miners don't have to wait for block to fill, or
+          remove some transaction in order to make block in size limit.
+    \item Ethereum Platform provides people to run local instances for personal use, blockchain does
+          not have such a feature.
+    \item Block interval time in Ethereum is far less($10$ sec) than compared to that of bitcoin. On an
+          average there are about $25$ transactions per second. Creating it more active form of currency.
+    \item Ethereum provides us smart contract directly, without any requirement of tweaking in the case of
+          Bitcoin.
+\end{enumerate}
+
+Cons of Ethereum over Bitcoin:
+\begin{enumerate}
+    \item Number of bitcoin is fixed to $21$ million, while number of Ethereum is around $91$ million,
+          Having large number of coin in some sense means that value would be low. So Bitcoin can be a better option
+          in terms of value.
+    \item Bitcoin scripts are a bit restrictive(CFG based), so that is good for securing purpose.
+    \item It is assumed that in Bitcoin, it is really different to find if 2 address are linked (belong to same owner etc).
+          So this provides a higher degree of privacy. 
+    \item There does not exist instances of bitcoin blockchain, as in the case of Ethereum. This would somehow
+          prevent the value of Bitcoin blockchain from falling.
+    \item Being first of its kind Bitcoin blockchain, has been the most popular among its peers. So it is more
+          beneficial to use bitcoin.
 \end{enumerate}
 
 But we shouldn't really try to compare Ethereum and Bitcoin on the same scale,
