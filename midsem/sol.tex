@@ -11,6 +11,40 @@
 \usepackage{tikz}
 \usepackage{tikz-qtree}
 \usepackage{mathtools}
+\usepackage{xcolor}
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{108,48,130}
+\definecolor{weborange}{RGB}{255,165,0}
+\definecolor{frenchplum}{RGB}{129,20,83}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstdefinestyle{DOS}
+{
+    backgroundcolor=\color{white},
+    basicstyle=\scriptsize\color{black}\ttfamily
+}
+\lstdefinestyle{C++} {
+    language=C++,
+    frame=tb,
+    tabsize=4,
+    showstringspaces=false,
+    numbers=left,
+    %upquote=true,
+    commentstyle=\color{commentgreen},
+    keywordstyle=\color{eminence},
+    stringstyle=\color{red},
+    basicstyle=\small\ttfamily, % basic font setting
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{blue}},
+    escapechar=\&,
+    % keyword highlighting
+    classoffset=1, % starting new class
+    otherkeywords={>,<,.,;,-,!,=,~},
+    morekeywords={>,<,.,;,-,!,=,~},
+    keywordstyle=\color{weborange},
+    classoffset=0,
+}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
 \setlength{\parindent}{0pt}
@@ -103,8 +137,54 @@ and the members compute hash values. But since signing computationally more expe
 this scheme would not work and mining pools would work.
 
 \subsection*{Problem 8:}
+\begin{lstlisting}[style=C++]
+pragma solidity ^0.5.0;
+
+// Our contract name
+contract MyFirstContract {
+  // denotes account balance as uint
+  uint public balance;
+  
+  // set balance to be 100 (initial value)     
+  constructor() public {
+    balance = 100;
+  }
+
+  // returns the current value of balance paramter of our contract
+  function getBalance() public returns(uint) {
+    return balance;
+  }
+}
+\end{lstlisting}
+\texttt{MyFirstContract.sol}
 
 
+\begin{lstlisting}[style=C++]
+// method to request a usable contract abstraction for a specific Solidity contract
+var MyFirstContract = artifacts.require("./MyFirstContract.sol");
+
+// Include this in exports.
+module.exports = function(deployer) {
+  // deploy this contract on Ethereum Network
+  deployer.deploy(MyFirstContract);
+};
+\end{lstlisting}
+\texttt{2\_deploy\_contracts.js}
+
+
+\begin{lstlisting}[style=C++]
+// Export the development configs.
+module.exports = {
+    networks: {
+        development: {
+        host: "localhost",     // local ethureum network
+        port: 8545,            // Port of operation for ganache
+        network_id: "*"        // * to match any network ID, it is a required field
+        }
+    }
+}
+\end{lstlisting}
+\texttt{truffle-config.js}
 
 \subsection*{Problem 9:}
 

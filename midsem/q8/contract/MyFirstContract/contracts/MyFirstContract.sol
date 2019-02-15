@@ -8,7 +8,7 @@ contract MyFirstContract {
     balance = 100;
   }
 
-  function getBalance() returns(uint) {
+  function getBalance() public view returns(uint) {
     return balance;
   }
 }
