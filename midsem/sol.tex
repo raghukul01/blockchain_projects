@@ -260,8 +260,51 @@ might be a miner who was lucky enough to find the next block early. So we cannot
 selfish miner.
 
 
-\subsection*{Problem 5:}
 
+
+\subsection*{Problem 5:}
+\subsection*{(a)}
+For each miner we know that probability of successfully solving puzzle = $p$, and total miners $=n$.
+Number of ways to choose $k$ miners out of n is $n\choose k$.
+Since the experiment for each node would be a Bernouli Trial, and success probability is same for each of them. \\
+
+$$P(n,k) = {n\choose k}p^k(1-p)^{n-k}$$
+
+\subsubsection*{(b)}
+The probability that $n$ miners make attempt and are able to successfully mine $k$ blocks
+(in fixed amount of time let's say T), with probability of success begin $p$, can be given by
+$$P(k) = {n\choose k}p^k(1-p)^{n-k}$$
+Let $r$ be the rate at which blocks are mined, so in $T$ time $T*r = \alpha \:...(i)$  blocks would be mined.
+But by linearity of expectation we can say that number of blocks mined with $n$ attempts
+(with success probability being $p$) is given by $p*n = \alpha \: ...(ii)$. \\
+
+Using equation $(i), (ii)$ we get that $p*n = T*r$ \\
+As $n \to \infty, p\to 0$ \\
+or
+\begin{align*}
+    lim_{p\to \infty} P(k) &= lim_{p\to \infty} {n\choose k}p^k(1-p)^{n-k} \\
+    & \text{using stirling apprximation and using $n = \frac{\alpha}{p}$ we get} \\
+    lim_{p\to \infty} P(k) &= \dfrac{\alpha^ke^{-\alpha}}{k!}
+\end{align*}
+So probability that atleast one block would be mined in $T$ would be: $1-P(0) = 1 - e^\alpha = 1-e^{np} = 1 - e^{rT}$\\
+
+Which means that time to mine next block follows exponential distribution. \\
+Parameters of the distribution is the expected time of finding one block or $np$
+
+\subsubsection*{(c)}
+Taking timestamp as a paramter would not work since there is network latency, while broadcasting a block to
+the community. Due to different timezones it would be difficult to have a synchronous time, ie we cannot have
+the concept of global time. \\
+
+Hence time stamp is not a good paramter to decide which block to add into the blockchain.
+
+\subsubsection*{(d)}
+We need to find value of $x$ that Bob should choose so that he can have $99\%$ confidence that $6$ blocks will be
+found in the next $x$. Or in other words the probability to find atleast $6$ blocks in time $x$ should be $0.99$. \\
+
+So $1 - \sum_{k=0}^{5}P(k) = 0.99$ \\
+$$1 - \sum_{k=0}^{5} \dfrac{\alpha^k e^{-\alpha}}{k!} = 0.99$$
+Using numerical analysis value of $\alpha \approx 13 = np$
 
 \subsection*{Problem 6:}
 Assuming that other miners have detected misbehaving miner's block, the next randomly selected node can
