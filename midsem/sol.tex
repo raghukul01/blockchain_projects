@@ -71,7 +71,6 @@ not including the cocaine transaction. So next time any miner would see 2 branch
 being honest it would the would be equally probable to build new block on either of them. Since There
 is no way to distinguish that one of the block tries to double spend, there are approximately $50\%$ chances
 that double spend would occur.\\
-\textit{Note: Ideas of this answer are picked from section 2.3, bitcoin book}
 % Doubt: should we explain 6 transaction confirmation or this would suffice?
 
 \subsection*{Problem 4:}
@@ -81,7 +80,6 @@ will be wasted. Other miners would mine on top of what they think is the longest
 selfish miner announces, that branch would instantly become the new longest chain. Eventaully 
 the rest of block (found by other miners), would become orphan. So in nutshell, gain in selfish mining
 is that effective share of mining rewards would increase. \\
-\textit{Note: Ideas of this answer are taken from section 5.5, bitcoin book.}
 
 \subsection*{(b)}
 
@@ -96,5 +94,25 @@ bitcoin blockchain, we cannot really identify the misbehaving node, based on thi
 Since detecting misbehaving node is hard, the misbehaving node can simply change his public key, and
 can again misbehave. He wouldn't be affected much in this case, so ``boycott'' might not prevent him from misbehaving.
 
+\subsection*{Problem 7:}
+As a blockchain designer, we can change the puzzle from ``find a block whose hash is below certain value'' to
+``find a block for which the hash of a signature on the block is below certain target''. So in this case
+pool manager would have to share his private key with all the pool members, and this would be risky
+since members might steal money from his wallet. Other alternative would be that pool manager does the signing work
+and the members compute hash values. But since signing computationally more expensive than computing hash value,
+this scheme would not work and mining pools would work.
 
+\subsection*{Problem 8:}
+
+
+
+\subsection*{Problem 9:}
+
+Pros of Ethereum over Bitcoin are:
+\begin{enumerate}
+    \item Ethereum provide us with EVM, which allow code to be verified and executed on the blockchain
+\end{enumerate}
+
+But we shouldn't really try to compare Ethereum and Bitcoin on the same scale,
+as they are targeted for different applications.
 \end{document}
