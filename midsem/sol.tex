@@ -57,43 +57,44 @@ Two suggested protocols to increase transaction rate to $70$/second are:
             orphan nodes, since they might be delayed in propogating. It would also have an envionmental effect, since
             power would be used more since block rate is high.
 
-\begin{question}
-    % Q2
-\end{question}
+\subsection*{Problem 2:}
+See folder named \texttt{q2}
+
+\subsection*{Problem 3:}
+In bitcoin blockchain we can have double spending attacks. Let's see how: \\
+
+Suppose Alice bought cocaine from Bob by paying him in bitcoin. Seeing this transaction in the most
+recent block Bob might think that transaction is successful, and would give alway cocaine to Alice.
+Now if the next random node this is selected in the next round happens to be controlled by Alice.
+So she might ignore the block including her cocaine transaction, and could build on the second most recent block,
+not including the cocaine transaction. So next time any miner would see 2 branches of equal length,
+being honest it would the would be equally probable to build new block on either of them. Since There
+is no way to distinguish that one of the block tries to double spend, there are approximately $50\%$ chances
+that double spend would occur.\\
+\textit{Note: Ideas of this answer are picked from section 2.3, bitcoin book}
+% Doubt: should we explain 6 transaction confirmation or this would suffice?
+
+\subsection*{Problem 4:}
+\subsubsection*{(a)}
+Since the miner is ahead of public blockchain by two secret blocks, all the mining efforts of the rest of the network
+will be wasted. Other miners would mine on top of what they think is the longest chain, so after the
+selfish miner announces, that branch would instantly become the new longest chain. Eventaully 
+the rest of block (found by other miners), would become orphan. So in nutshell, gain in selfish mining
+is that effective share of mining rewards would increase. \\
+\textit{Note: Ideas of this answer are taken from section 5.5, bitcoin book.}
+
+\subsection*{(b)}
 
 
-
-\begin{question}
-    % Q3
-\end{question}
-He is wrong. We can have a double spending attact is there are $51$
-
-\begin{question}
-    % Q4
-\end{question}
+\subsection*{Problem 5:}
 
 
+\subsection*{Problem 6:}
+Assuming that other miners have detected misbehaving miner's block, the next randomly selected node can
+``boycott'', by not building on top of the misbehaving miner's block. Since there is no real identity in
+bitcoin blockchain, we cannot really identify the misbehaving node, based on this public key/wallet address.
+Since detecting misbehaving node is hard, the misbehaving node can simply change his public key, and
+can again misbehave. He wouldn't be affected much in this case, so ``boycott'' might not prevent him from misbehaving.
 
-\begin{question}
-    % Q5
-\end{question}
-
-\begin{question}
-    % Q6
-\end{question}
-
-
-
-\begin{question}
-    % Q7
-\end{question}
-
-\begin{question}
-    % Q8
-\end{question}
-
-\begin{question}
-    % Q9
-\end{question}
 
 \end{document}
