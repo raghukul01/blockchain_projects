@@ -1,0 +1,4 @@
+better site to get test ethers: https://faucet.metamask.io/
+
+What if the manager wants to delete only one course contract?
+In kill function for manager do we need to delete all the course contracts?
